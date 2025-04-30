@@ -1,35 +1,75 @@
 <html>
-    <body style="margin: 0; font-family: Arial, sans-serif; background: linear-gradient(darkblue, indigo);">
+    <body style="margin: 0; font-family: Arial, sans-serif; background: linear-gradient(darkblue, indigo); width: 100%; height: 100%;">
         <textarea id="material" 
                   placeholder="Enter your text here..." 
-                  style="width: 95%; height: 100px; margin: 20px; font-size: 16px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                  style="width: 100%; height: 100px; font-size: 16px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
         </textarea>
         <button onclick="create()" 
                 style="display: block; margin: 10px auto; padding: 10px 20px; font-size: 18px; color: white; background-color: #007BFF; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-            Create Slide
+            Create Video
         </button>
         <script>
             function create() {
+                const container = document.createElement("div");
+                container.style.position = "absolute";
+                container.style.width = "60%";
+                container.style.height = "50%";
+                container.style.top = "30%";
+                container.style.left = "20%";
+                container.style.borderRadius = "20px";
+                container.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
+                container.style.fontFamily = "Arial, sans-serif";
+
                 const slide = document.createElement("div");
                 slide.style.backgroundImage = 'linear-gradient(blue, lightblue)';
-                slide.style.width = "90%";
-                slide.style.height = "70%";
-                slide.innerHTML = document.getElementById("material").value;
-                slide.style.color = "white";
-                slide.style.fontSize = "3vw";
-                slide.style.position = "fixed";
-                slide.style.top = "15%";
-                slide.style.left = "5%";
+                slide.style.width = "100%";
+                slide.style.height = "100%";
                 slide.style.textAlign = "center";
-                slide.style.padding = "2vw";
-                slide.style.borderRadius = "12px";
-                slide.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
-                slide.style.overflow = "hidden";
-                slide.style.textOverflow = "ellipsis";
-                slide.style.whiteSpace = "normal";
-                slide.style.wordWrap = "break-word";
-                slide.style.fontFamily = "Arial, sans-serif";
-                document.body.appendChild(slide);
+                slide.style.color = "white";
+                slide.style.fontSize = "2vw";
+                slide.style.padding = "20px";
+                slide.style.overflowY = "auto";
+                slide.style.overflowX = "hidden";
+                slide.style.borderRadius = "2vw"
+                slide.innerHTML = document.getElementById("material").value;
+
+                function createEar(leftPosition, rotation) {
+                    const ear = document.createElement("div");
+                    ear.style.position = "absolute";
+                    ear.style.backgroundColor = "black";
+                    ear.style.width = "8%";
+                    ear.style.height = "12%";
+                    ear.style.clipPath = "polygon(50% 0%, 0% 100%, 100% 100%)";
+                    ear.style.left = leftPosition;
+                    ear.style.top = "-12%";
+                    ear.style.transform = `rotate(${rotation}deg)`;
+                    container.appendChild(ear);
+                }
+
+                createEar("-5%", "-30");
+                createEar("105%", "30");
+
+                function createWhisker(leftPosition, topPosition) {
+                    const whisker = document.createElement("div");
+                    whisker.style.position = "absolute";
+                    whisker.style.backgroundColor = "black";
+                    whisker.style.width = "20%";
+                    whisker.style.height = "2px";
+                    whisker.style.left = leftPosition;
+                    whisker.style.top = topPosition;
+                    container.appendChild(whisker);
+                }
+
+                createWhisker("-18%", "45%");
+                createWhisker("-18%", "50%");
+                createWhisker("-18%", "55%");
+                createWhisker("98%", "45%");
+                createWhisker("98%", "50%");
+                createWhisker("98%", "55%");
+
+                container.appendChild(slide);
+                document.body.appendChild(container);
+
                 const text = document.getElementById("material").value;
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.rate = 1;
@@ -40,3 +80,4 @@
         </script>
     </body>
 </html>
+
