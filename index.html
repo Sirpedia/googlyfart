@@ -1,0 +1,42 @@
+<html>
+    <body style="margin: 0; font-family: Arial, sans-serif; background: linear-gradient(darkblue, indigo);">
+        <textarea id="material" 
+                  placeholder="Enter your text here..." 
+                  style="width: 95%; height: 100px; margin: 20px; font-size: 16px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+        </textarea>
+        <button onclick="create()" 
+                style="display: block; margin: 10px auto; padding: 10px 20px; font-size: 18px; color: white; background-color: #007BFF; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            Create Slide
+        </button>
+        <script>
+            function create() {
+                const slide = document.createElement("div");
+                slide.style.backgroundImage = 'linear-gradient(blue, lightblue)';
+                slide.style.width = "90%";
+                slide.style.height = "70%";
+                slide.innerHTML = document.getElementById("material").value;
+                slide.style.color = "white";
+                slide.style.fontSize = "3vw";
+                slide.style.position = "fixed";
+                slide.style.top = "15%";
+                slide.style.left = "5%";
+                slide.style.textAlign = "center";
+                slide.style.padding = "2vw";
+                slide.style.borderRadius = "12px";
+                slide.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
+                slide.style.overflow = "hidden";
+                slide.style.textOverflow = "ellipsis";
+                slide.style.whiteSpace = "normal";
+                slide.style.wordWrap = "break-word";
+                slide.style.fontFamily = "Arial, sans-serif";
+                document.body.appendChild(slide);
+                const text = document.getElementById("material").value;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 1;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                window.speechSynthesis.speak(utterance);
+            }
+        </script>
+    </body>
+</html>
