@@ -9,6 +9,18 @@
             Create Video
         </button>
         <audio id="beat" src="beat.mp3"></audio>
+        <style>
+            @keyframes scrollUp {
+                0% { top: 100%; }
+                100% { top: -100%; }
+            }
+            .scroll-container {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                animation: scrollUp 30s linear infinite;
+            }
+        </style>
         <script>
             function create() {
                 const audio = document.getElementById("beat");
@@ -52,14 +64,9 @@
                     slide.innerHTML = "";
 
                     const scrollContainer = document.createElement("div");
-                    scrollContainer.style.position = "absolute";
-                    scrollContainer.style.width = "100%";
-                    scrollContainer.style.top = "100%";
-                    scrollContainer.style.textAlign = "center";
-                    scrollContainer.style.transition = "top 10s linear";
+                    scrollContainer.className = "scroll-container";
                     slide.appendChild(scrollContainer);
 
-                    let index = 0;
                     let lineText = "";
 
                     words.forEach((word, i) => {
@@ -72,10 +79,6 @@
                             lineText = "";
                         }
                     });
-
-                    setTimeout(() => {
-                        scrollContainer.style.top = "-10%";
-                    }, 500);
 
                     window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
                 }, 1000);
