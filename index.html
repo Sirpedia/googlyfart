@@ -8,8 +8,20 @@
                 style="display: block; margin: 10px auto; padding: 10px 20px; font-size: 18px; color: white; background-color: #007BFF; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
             Create Video
         </button>
+        <audio id="beat" src="beat.mp3"></audio>
         <script>
             function create() {
+                const audio = document.getElementById("beat");
+                audio.currentTime = 0;
+                audio.play();
+                
+                audio.addEventListener("timeupdate", function() {
+                    if (audio.currentTime >= 12) {
+                        audio.currentTime = 0;
+                        audio.play();
+                    }
+                });
+
                 const container = document.createElement("div");
                 container.style.position = "absolute";
                 container.style.width = "60%";
@@ -32,40 +44,6 @@
                 slide.style.overflowX = "hidden";
                 slide.style.borderRadius = "2vw"
                 slide.innerHTML = document.getElementById("material").value;
-
-                function createEar(leftPosition, rotation) {
-                    const ear = document.createElement("div");
-                    ear.style.position = "absolute";
-                    ear.style.backgroundColor = "black";
-                    ear.style.width = "8%";
-                    ear.style.height = "12%";
-                    ear.style.clipPath = "polygon(50% 0%, 0% 100%, 100% 100%)";
-                    ear.style.left = leftPosition;
-                    ear.style.top = "-12%";
-                    ear.style.transform = `rotate(${rotation}deg)`;
-                    container.appendChild(ear);
-                }
-
-                createEar("-5%", "-30");
-                createEar("105%", "30");
-
-                function createWhisker(leftPosition, topPosition) {
-                    const whisker = document.createElement("div");
-                    whisker.style.position = "absolute";
-                    whisker.style.backgroundColor = "black";
-                    whisker.style.width = "20%";
-                    whisker.style.height = "2px";
-                    whisker.style.left = leftPosition;
-                    whisker.style.top = topPosition;
-                    container.appendChild(whisker);
-                }
-
-                createWhisker("-18%", "45%");
-                createWhisker("-18%", "50%");
-                createWhisker("-18%", "55%");
-                createWhisker("98%", "45%");
-                createWhisker("98%", "50%");
-                createWhisker("98%", "55%");
 
                 container.appendChild(slide);
                 document.body.appendChild(container);
