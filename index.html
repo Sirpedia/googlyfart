@@ -43,11 +43,11 @@
                 slide.style.color = "white";
                 slide.style.fontSize = "3vw";
                 slide.style.padding = "2%";
-                slide.style.overflowWrap = "break-word";  /* Ensures line wrapping */
-                slide.style.wordBreak = "break-word";  /* Ensures words break correctly */
+                slide.style.overflowWrap = "break-word";
+                slide.style.wordBreak = "break-word";
                 slide.style.overflow = "hidden"; 
                 slide.style.display = "flex";
-                slide.style.flexDirection = "column"; /* Displays words in multiple lines */
+                slide.style.flexDirection = "column";
                 slide.style.justifyContent = "center";
                 slide.style.alignItems = "center";
                 slide.style.opacity = "1";
@@ -62,26 +62,30 @@
                     slide.innerHTML = "";
 
                     let index = 0;
-                    function showNextWord() {
+                    function showNextLine() {
                         if (index < words.length) {
-                            const wordDiv = document.createElement("div");
-                            wordDiv.textContent = words[index];
-                            wordDiv.style.opacity = "0";
-                            wordDiv.style.transition = "opacity 0.2s ease-in";
-                            slide.appendChild(wordDiv);
-                            setTimeout(() => wordDiv.style.opacity = "1", 10);
+                            const lineDiv = document.createElement("div");
+                            lineDiv.style.opacity = "0";
+                            lineDiv.style.transition = "opacity 0.3s ease-in";
+                            lineDiv.style.marginBottom = "10px";
 
-                            index++;
-                            setTimeout(showNextWord, 150); // Adjust timing as needed
+                            let lineText = "";
+                            for (let i = 0; i < 5 && index < words.length; i++, index++) {
+                                lineText += words[index] + " ";
+                            }
+                            lineDiv.textContent = lineText.trim();
+                            slide.appendChild(lineDiv);
+                            setTimeout(() => lineDiv.style.opacity = "1", 100);
+
+                            setTimeout(showNextLine, 800); // Adjust timing as needed
                         }
                     }
 
-                    showNextWord();
+                    showNextLine();
                     window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
                 }, 1000);
             }
         </script>
     </body>
 </html>
-
 
